@@ -1,4 +1,4 @@
-AC_INIT([cpuminer-opt], [3.8.8.1])
+AC_INIT([ppminer], [3.9.0.0])
 
 AC_PREREQ([2.59c])
 AC_CANONICAL_SYSTEM
@@ -192,3 +192,11 @@ AC_CONFIG_FILES([
 	compat/jansson/Makefile
 	])
 AC_OUTPUT
+
+echo "CC.............: $CC"
+echo "CFLAGS.........: $CFLAGS"
+echo "LDFLAGS........: $LDFLAGS"
+echo "LIBS...........: $LIBS"
+echo "CPPFLAGS.......: $CPPFLAGS"
+echo "install path...: $prefix"
+echo "Enable assemble: $enable_assembly"

@@ -11,11 +11,11 @@ SUBDIRS		= compat
 
 ALL_INCLUDES	= @PTHREAD_FLAGS@ -fno-strict-aliasing $(JANSSON_INCLUDES) -I.
 
-bin_PROGRAMS	= cpuminer
+bin_PROGRAMS	= ppminer
 
-dist_man_MANS	= cpuminer.1
+#dist_man_MANS	= ppminer.1
 
-cpuminer_SOURCES = \
+ppminer_SOURCES = \
   cpu-miner.c \
   util.c \
   uint256.cpp \
@@ -257,31 +257,31 @@ cpuminer_SOURCES = \
 disable_flags =
 
 if USE_ASM
-   cpuminer_SOURCES += asm/neoscrypt_asm.S
+   ppminer_SOURCES += asm/neoscrypt_asm.S
 if ARCH_x86
-   cpuminer_SOURCES += asm/sha2-x86.S asm/scrypt-x86.S asm/aesb-x86.S
+   ppminer_SOURCES += asm/sha2-x86.S asm/scrypt-x86.S asm/aesb-x86.S
 endif
 if ARCH_x86_64
-   cpuminer_SOURCES += asm/sha2-x64.S asm/scrypt-x64.S asm/aesb-x64.S
+   ppminer_SOURCES += asm/sha2-x64.S asm/scrypt-x64.S asm/aesb-x64.S
 endif
 if ARCH_ARM
-   cpuminer_SOURCES += asm/sha2-arm.S asm/scrypt-arm.S
+   ppminer_SOURCES += asm/sha2-arm.S asm/scrypt-arm.S
 endif
 else
    disable_flags += -DNOASM
 endif
 
 if HAVE_WINDOWS
-   cpuminer_SOURCES += compat/winansi.c
+   ppminer_SOURCES += compat/winansi.c
 endif
 
-cpuminer_LDFLAGS	= @LDFLAGS@
-cpuminer_LDADD	= @LIBCURL@ @JANSSON_LIBS@ @PTHREAD_LIBS@ @WS2_LIBS@ -lssl -lcrypto -lgmp -lcurl
-cpuminer_CPPFLAGS = @LIBCURL_CPPFLAGS@ $(ALL_INCLUDES)
-cpuminer_CFLAGS   = -Wno-pointer-sign -Wno-pointer-to-int-cast $(disable_flags)
+ppminer_LDFLAGS	= @LDFLAGS@
+ppminer_LDADD	= @LIBCURL@ @JANSSON_LIBS@ @PTHREAD_LIBS@ @WS2_LIBS@ -lssl -lcrypto -lgmp -lcurl
+ppminer_CPPFLAGS = @LIBCURL_CPPFLAGS@ $(ALL_INCLUDES)
+ppminer_CFLAGS   = -Wno-pointer-sign -Wno-pointer-to-int-cast $(disable_flags)
 
 if HAVE_WINDOWS
-cpuminer_CFLAGS += -Wl,--stack,10485760
+ppminer_CFLAGS += -Wl,--stack,10485760
 endif
 
 if HAVE_WINDOWS
@@ -294,7 +294,7 @@ if HAVE_WINDOWS
 common_ccflags = $(DEFS) $(ALL_INCLUDES) $(cpuminer_CPPFLAGS) $(CPPFLAGS) $(cpuminer_CFLAGS) $(CFLAGS)
 
 # special CFLAGS (if you find a simpler way to do that tell me ;)
-cpuminer-neoscrypt.o: neoscrypt.c
+ppminer-neoscrypt.o: neoscrypt.c
 	@echo "CUSTOM ${@}: ${filter %.o,${^}} ${filter %.c,${^}}"
 	$(CC) $(common_ccflags) -g -O3 $(gprof_cflags) -MT $@ -MD -MP -c -o $@ $<
 

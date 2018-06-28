@@ -91,8 +91,8 @@ Supported Algorithms
 
 Donations
 ---------
-sudo apt install build-essential cmake pkg-config libboost-all-dev libssl-dev libzmq3-dev libunbound-dev libsodium-dev libminiupnpc-dev libunwind8-dev liblzma-dev libreadline6-dev libldns-dev libexpat1-dev doxygen graphviz libpcsclite-dev
-
+sudo apt install build-essential cmake pkg-config libboost-all-dev libssl-dev libzmq3-dev 
+sudo apt install libunbound-dev libsodium-dev libminiupnpc-dev libunwind8-dev liblzma-dev 
+sudo apt install libreadline6-dev libldns-dev libexpat1-dev doxygen graphviz libpcsclite-dev
 sudo apt-get install automake autoconf
-
 sudo apt-get install curl libcurl4-openssl-dev libgmp3-dev

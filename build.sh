@@ -24,4 +24,4 @@ CFLAGS="-O3 -march=native -Wall" ./configure
 
 make -j 4
 
-strip -s cpuminer
+strip -s ppminer
