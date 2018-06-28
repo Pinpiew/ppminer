@@ -1,5 +1,5 @@
 <?php
-/* cpuminer API sample UI */
+/* ppminer API sample UI */
 
 $host = 'http://localhost/api/'; // 'http://'.$_SERVER['SERVER_NAME'].'/api/';
 $configs = array(
@@ -128,7 +128,7 @@ $data = getdataFromPears();
 ?>
 <html>
 <head>
-	<title>cpuminer rig api sample</title>
+	<title>ppminer rig api sample</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta http-equiv="refresh" content="10">
 <style type="text/css">
@@ -182,7 +182,7 @@ li span.algo { display: inline-block; width: 100px; max-width: 180px; }
 </head>
 <body>
 <div id="header">
-<h1>cpuminer monitoring API RIG sample</h1>
+<h1>ppminer monitoring API RIG sample</h1>
 </div>
 
 <div id="page">
@@ -190,7 +190,7 @@ li span.algo { display: inline-block; width: 100px; max-width: 180px; }
 </div>
 
 <div id="footer">
-<p>&copy; 2014 <a href="https://github.com/JayDDee/cpuminer-opt">jayddee246@gmail.com</a></p>
+<p>&copy; 2014 <a href="ppminer">pinpie@qq.com</a></p>
 </div>
 
 </body>

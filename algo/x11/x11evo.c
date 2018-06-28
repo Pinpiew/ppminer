@@ -1,4 +1,4 @@
-#include "cpuminer-config.h"
+#include "ppminer-config.h"
 #include "x11evo-gate.h"
 
 #include <string.h>

@@ -99,7 +99,7 @@ void blakecoin_gen_merkle_root ( char* merkle_root, struct stratum_ctx* sctx )
 }
 */
 /*
-// changed to get_max64_0x3fffffLL in cpuminer-multi-decred
+// changed to get_max64_0x3fffffLL in ppminer-multi-decred
 int64_t blakecoin_get_max64 ()
 {
   return 0x7ffffLL;

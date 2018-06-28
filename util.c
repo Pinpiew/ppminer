@@ -10,7 +10,7 @@
  */
 
 #define _GNU_SOURCE
-#include <cpuminer-config.h>
+#include <ppminer-config.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -168,12 +168,12 @@ void get_defconfig_path(char *out, size_t bufsize, char *argv0)
 	const char *sep = strstr(dir, "\\") ? "\\" : "/";
 	struct stat info = { 0 };
 #ifdef WIN32
-	snprintf(out, bufsize, "%s\\cpuminer\\cpuminer-conf.json", getenv("APPDATA"));
+	snprintf(out, bufsize, "%s\\ppminer\\ppminer-conf.json", getenv("APPDATA"));
 #else
-	snprintf(out, bufsize, "%s\\.cpuminer\\cpuminer-conf.json", getenv("HOME"));
+	snprintf(out, bufsize, "%s\\.ppminer\\ppminer-conf.json", getenv("HOME"));
 #endif
 	if (dir && stat(out, &info) != 0) {
-		snprintf(out, bufsize, "%s%scpuminer-conf.json", dir, sep);
+		snprintf(out, bufsize, "%s%sppminer-conf.json", dir, sep);
 	}
 	if (stat(out, &info) != 0) {
 		out[0] = '\0';

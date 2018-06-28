@@ -1,4 +1,4 @@
-#include "cpuminer-config.h"
+#include "ppminer-config.h"
 #include "anime-gate.h"
 
 #if defined (ANIME_4WAY)

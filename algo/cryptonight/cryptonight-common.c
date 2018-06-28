@@ -4,7 +4,7 @@
 
 // Modified for CPUminer by Lucas Jones
 
-#include "cpuminer-config.h"
+#include "ppminer-config.h"
 #include "algo-gate-api.h"
 
 #if defined(__AES__)

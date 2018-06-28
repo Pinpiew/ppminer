@@ -24,7 +24,7 @@
  * SUCH DAMAGE.
  */
 
-#include "cpuminer-config.h"
+#include "ppminer-config.h"
 #include "algo-gate-api.h"
 
 #include <stdlib.h>

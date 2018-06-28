@@ -1,4 +1,4 @@
-#include "cpuminer-config.h"
+#include "ppminer-config.h"
 #include "algo-gate-api.h"
 
 #include <gmp.h>

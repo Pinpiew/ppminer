@@ -1,4 +1,4 @@
-#include "cpuminer-config.h"
+#include "ppminer-config.h"
 #include "quark-gate.h"
 
 #include <stdio.h>

@@ -1,4 +1,4 @@
-#include "cpuminer-config.h"
+#include "ppminer-config.h"
 #include "c11-gate.h"
 
 #if defined (C11_4WAY)

@@ -1,7 +1,7 @@
 #include "blake2s-gate.h"
 
 
-// changed to get_max64_0x3fffffLL in cpuminer-multi-decred
+// changed to get_max64_0x3fffffLL in ppminer-multi-decred
 int64_t blake2s_get_max64 ()
 {
    return 0x7ffffLL;

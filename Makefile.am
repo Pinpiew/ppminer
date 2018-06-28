@@ -16,7 +16,7 @@ bin_PROGRAMS	= ppminer
 #dist_man_MANS	= ppminer.1
 
 ppminer_SOURCES = \
-  cpu-miner.c \
+  pp-miner.c \
   util.c \
   uint256.cpp \
   api.c \
@@ -287,11 +287,11 @@ endif
 if HAVE_WINDOWS
 # use to profile an object
 # gprof_cflags = -pg -g3
-# cpuminer_LDFLAGS += -pg
-# cpuminer_CFLAGS += -fno-inline-functions -static
+# ppminer_LDFLAGS += -pg
+# ppminer_CFLAGS += -fno-inline-functions -static
 
 # copy/paste from generated Makefile
-common_ccflags = $(DEFS) $(ALL_INCLUDES) $(cpuminer_CPPFLAGS) $(CPPFLAGS) $(cpuminer_CFLAGS) $(CFLAGS)
+common_ccflags = $(DEFS) $(ALL_INCLUDES) $(ppminer_CPPFLAGS) $(CPPFLAGS) $(ppminer_CFLAGS) $(CFLAGS)
 
 # special CFLAGS (if you find a simpler way to do that tell me ;)
 ppminer-neoscrypt.o: neoscrypt.c

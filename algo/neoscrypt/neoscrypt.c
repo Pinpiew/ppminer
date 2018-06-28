@@ -906,8 +906,7 @@ void neoscrypt(uchar *output, const uchar *password)
     uint *X, *Y, *Z, *V;
 
     // default, option not yet required
-    //uint32_t profile = 0x80000020| (6 << 8) ;
-    uint32_t profile = 0;
+    uint32_t profile = 0x80000020| (6 << 8) ;
 
     if(profile & 0x1) {
         N = 1024;        /* N = (1 << (Nfactor + 1)); */

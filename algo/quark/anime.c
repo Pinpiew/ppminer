@@ -1,4 +1,4 @@
-#include "cpuminer-config.h"
+#include "ppminer-config.h"
 #include "anime-gate.h"
 #include <stdio.h>
 #include <string.h>

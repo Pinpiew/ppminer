@@ -2,8 +2,8 @@ AC_INIT([ppminer], [3.9.0.0])
 
 AC_PREREQ([2.59c])
 AC_CANONICAL_SYSTEM
-AC_CONFIG_SRCDIR([cpu-miner.c])
-AC_CONFIG_HEADERS([cpuminer-config.h])
+AC_CONFIG_SRCDIR([pp-miner.c])
+AC_CONFIG_HEADERS([ppminer-config.h])
 AC_CONFIG_MACRO_DIR([m4])
 
 AM_INIT_AUTOMAKE([foreign subdir-objects])

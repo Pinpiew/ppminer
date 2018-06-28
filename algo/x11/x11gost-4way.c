@@ -1,4 +1,4 @@
-#include "cpuminer-config.h"
+#include "ppminer-config.h"
 #include "x11gost-gate.h"
 
 #if defined (X11GOST_4WAY)

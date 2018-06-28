@@ -1,7 +1,7 @@
 #include "blakecoin-gate.h"
 #include <memory.h>
 
-// changed to get_max64_0x3fffffLL in cpuminer-multi-decred
+// changed to get_max64_0x3fffffLL in ppminer-multi-decred
 int64_t blakecoin_get_max64 ()
 {
   return 0x7ffffLL;
