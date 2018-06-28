@@ -2992,7 +2992,7 @@ static void show_credits()
 {
    printf("\n         **********  "PACKAGE_NAME" "PACKAGE_VERSION"  *********** \n");
    printf("     A pp miner with multi algo support and optimized for CPUs or asic\n");
-   printf("     with AES_NI and AVX2 and SHA extensions.\n");
+   printf("     with AES_NI and AVX2 and SHA extensions.\n\n");
 }
 
 bool check_cpu_capability ()
