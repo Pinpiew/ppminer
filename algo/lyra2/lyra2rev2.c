@@ -6,7 +6,7 @@
 #include "algo/skein/sph_skein.h"
 #include "algo/bmw/sph_bmw.h"
 #include "algo/cubehash/sse2/cubehash_sse2.h" 
-//#include "lyra2.h"
+#include "drv_api.h"
 
 typedef struct {
         cubehashParam           cube1;
@@ -72,44 +72,69 @@ void lyra2rev2_hash( void *state, const void *input )
 	memcpy( state, hashB, 32 );
 }
 
+static uint8_t g_msgIdx = 0;
+
 int scanhash_lyra2rev2(int thr_id, struct work *work,
 	uint32_t max_nonce, uint64_t *hashes_done)
 {
-        uint32_t *pdata = work->data;
-        uint32_t *ptarget = work->target;
-	uint32_t endiandata[20] __attribute__ ((aligned (64)));
-        uint32_t hash[8] __attribute__((aligned(64)));
-	const uint32_t first_nonce = pdata[19];
-	uint32_t nonce = first_nonce;
-        const uint32_t Htarg = ptarget[7];
+  uint32_t *pdata = work->data;
+  uint32_t *ptarget = work->target;
+  uint32_t endiandata[20] __attribute__ ((aligned (64)));
+  uint32_t hash[8] __attribute__((aligned(64)));
+  const uint32_t first_nonce = pdata[19];
+  uint32_t nonce = first_nonce;
+  const uint32_t Htarg = ptarget[7];
+  uint8_t msgidx;
+  int ncnt;
 
-	if (opt_benchmark)
-		((uint32_t*)ptarget)[7] = 0x0000ff;
+  if (opt_benchmark)
+    ((uint32_t*)ptarget)[7] = 0x0000ff;
 
-        swab32_array( endiandata, pdata, 20 );
+  swab32_array( endiandata, pdata, 20 );
+  l2v2_blake256_midstate( endiandata );
 
-        l2v2_blake256_midstate( endiandata );
+  be32enc(&endiandata[19], nonce);
+  drv_send_work(g_msgIdx, (uint8_t *)&nonce, 4, (uint8_t *)&endiandata[0], 80);
+  do {
+    ncnt = drv_get_nonce(&msgidx, (uint8_t *)&work->nonces[0]);
+  } while((msgidx != g_msgIdx) || (ncnt == 0));
 
-	do {
-		be32enc(&endiandata[19], nonce);
-		lyra2rev2_hash(hash, endiandata);
+  for (int i = 0; i < ncnt; i++) {
+    be32enc(&endiandata[19], work->nonces[i]);
+    lyra2rev2_hash(hash, endiandata);
 
-		if (hash[7] <= Htarg )
-                {
-                   if( fulltest(hash, ptarget) )
-                   {
-			pdata[19] = nonce;
-                        work_set_target_ratio( work, hash );
-			*hashes_done = pdata[19] - first_nonce;
-		   	return 1;
-		   }
-                }
-		nonce++;
+    if (hash[7] <= Htarg ) {
+      if( !fulltest(hash, ptarget) ) {
+        applog(LOG_ERR, "the diff of the nonce 0x%08x is not right",work->nonces[i]);
+        return 1;
+      }
+    }
+  }
 
-	} while (nonce < max_nonce && !work_restart[thr_id].restart);
+  g_msgIdx += 1;
+  return ncnt;
+#if 0
+  do {
+    be32enc(&endiandata[19], nonce);
+    lyra2rev2_hash(hash, endiandata);
 
-	pdata[19] = nonce;
-	*hashes_done = pdata[19] - first_nonce + 1;
-	return 0;
+    if (hash[7] <= Htarg )
+    {
+      if( fulltest(hash, ptarget) )
+      {
+        pdata[19] = nonce;
+        work_set_target_ratio( work, hash );
+        *hashes_done = pdata[19] - first_nonce;
+        return 1;
+      }
+    }
+    nonce++;
+
+  } while (nonce < max_nonce && !work_restart[thr_id].restart);
+
+  pdata[19] = nonce;
+  *hashes_done = pdata[19] - first_nonce + 1;
+  return 0;
+  #endif
 }
 

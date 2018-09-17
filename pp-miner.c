@@ -1821,7 +1821,7 @@ static void *miner_thread( void *userdata )
           if ( have_stratum )
           {
               algo_gate.wait_for_diff( &stratum );
- 	      pthread_mutex_lock( &g_work_lock );
+              pthread_mutex_lock( &g_work_lock );
               if ( *algo_gate.get_nonceptr( work.data ) >= end_nonce )
                  algo_gate.stratum_gen_work( &stratum, &g_work );
               algo_gate.get_new_work( &work, &g_work, thr_id, &end_nonce,
@@ -1830,22 +1830,22 @@ static void *miner_thread( void *userdata )
           }
           else
           {
-             int min_scantime = have_longpoll ? LP_SCANTIME : opt_scantime;
-	     pthread_mutex_lock( &g_work_lock );
+            int min_scantime = have_longpoll ? LP_SCANTIME : opt_scantime;
+            pthread_mutex_lock( &g_work_lock );
 
              if ( time(NULL) - g_work_time >= min_scantime
                   || *algo_gate.get_nonceptr( work.data ) >= end_nonce )
              {
-	        if ( unlikely( !get_work( mythr, &g_work ) ) )
+                if ( unlikely( !get_work( mythr, &g_work ) ) )
                 {
-		   applog( LOG_ERR, "work retrieval failed, exiting "
-		           "mining thread %d", thr_id );
+                   applog( LOG_ERR, "work retrieval failed, exiting "
+                                     "mining thread %d", thr_id );
                    pthread_mutex_unlock( &g_work_lock );
-		   goto out;
-	        }
+                   goto out;
+                }
                 g_work_time = time(NULL);
-	     }
-             algo_gate.get_new_work( &work, &g_work, thr_id, &end_nonce, true );
+            }
+            algo_gate.get_new_work( &work, &g_work, thr_id, &end_nonce, true );
 
              pthread_mutex_unlock( &g_work_lock );
           }
@@ -1858,7 +1858,7 @@ static void *miner_thread( void *userdata )
        if (!wanna_mine(thr_id))
        {
           sleep(5);
-	  continue;
+          continue;
        }
        // adjust max_nonce to meet target scan time
        if (have_stratum)
@@ -1887,8 +1887,8 @@ static void *miner_thread( void *userdata )
              }
              else
                 applog( LOG_NOTICE,
-	          "Mining timeout of %ds reached, exiting...", opt_time_limit);
-	     proper_exit(0);
+                "Mining timeout of %ds reached, exiting...", opt_time_limit);
+                proper_exit(0);
           }
           if (remain < max64) max64 = remain;
        }
@@ -1919,25 +1919,27 @@ static void *miner_thread( void *userdata )
        {
           pthread_mutex_lock( &stats_lock );
           thr_hashcount[thr_id] = hashes_done;
-	  thr_hashrates[thr_id] =
-		hashes_done / ( diff.tv_sec + diff.tv_usec * 1e-6 );
-	  pthread_mutex_unlock( &stats_lock );
+          thr_hashrates[thr_id] =
+          hashes_done / ( diff.tv_sec + diff.tv_usec * 1e-6 );
+          pthread_mutex_unlock( &stats_lock );
        }
 
        // if nonce(s) found submit work
        if ( nonce_found && !opt_benchmark )
        {  // 4 way with multiple nonces, copy individually to work and submit.
           if ( nonce_found > 1 )
-          for ( int n = 0; n < nonce_found; n++ )
           {
-             *algo_gate.get_nonceptr( work.data ) = work.nonces[n];
-             if ( submit_work( mythr, &work ) )
-                applog( LOG_NOTICE, "Share submitted." );
-             else
-             {
-                applog( LOG_WARNING, "Failed to submit share." );
-                break;
-             }
+            for ( int n = 0; n < nonce_found; n++ )
+            {
+               *algo_gate.get_nonceptr( work.data ) = work.nonces[n];
+               if ( submit_work( mythr, &work ) )
+                  applog( LOG_NOTICE, "Share submitted." );
+               else
+               {
+                  applog( LOG_WARNING, "Failed to submit share." );
+                  break;
+               }
+            }
           }
           else
           {  // only 1 nonce, in work ready to submit.
@@ -3180,6 +3182,7 @@ int main(int argc, char *argv[])
 		num_cpus = 1;
 
 	parse_cmdline(argc, argv);
+  drv_init();
 
         if (!opt_n_threads)
                 opt_n_threads = num_cpus;

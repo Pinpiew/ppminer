@@ -254,6 +254,20 @@ ppminer_SOURCES = \
   algo/yescrypt/sha256_Y.c \
   algo/yescrypt/yescrypt-best.c
 
+ppminer_SOURCES += \
+  driver/drv_api.c \
+  driver/common/chip-api.c \
+  driver/common/comm-api.c \
+  driver/common/crc.c  \
+  driver/common/logging.c \
+  driver/common/midd-api.c  \
+  driver/common/ringbuffer.c \
+  driver/common/util.c  \
+  driver/communicate/uart-ubuntu.c \
+  driver/plat/bm1940-driver.c
+
+ALL_INCLUDES += -Idriver -Idriver/common -Idriver/communicate -Idriver/plat
+
 disable_flags =
 
 if USE_ASM
