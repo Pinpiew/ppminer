@@ -151,8 +151,8 @@ void drv_init(void)
   }
 }
 
-void drv_send_work(uint8_t msg_id, uint8_t *nonce, uint32_t n_len,
-                                   uint8_t *msg, uint32_t m_len) {
+void drv_send_work(uint8_t msg_id, uint8_t diff, uint8_t *nonce,
+                    uint32_t n_len, uint8_t *msg, uint32_t m_len) {
 
   struct cmd_header frame;
   uint32_t m = 0;
@@ -162,6 +162,7 @@ void drv_send_work(uint8_t msg_id, uint8_t *nonce, uint32_t n_len,
 
     frame.chip_addr = DRV_CHIP_BC;
     frame.data[m++] = msg_id;
+    frame.data[m++] = diff;
     frame.data[m++] = n_len;
     memcpy(&frame.data[m], nonce, n_len);
     m += n_len;

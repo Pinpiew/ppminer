@@ -74,6 +74,26 @@ void lyra2rev2_hash( void *state, const void *input )
 
 static uint8_t g_msgIdx = 0;
 
+static int _get_leadingZeroCnt(uint8_t *result) {
+
+  int count = 0;
+
+  for (int i = 0; i < 32; i++) {
+    if (result[i] < 1)        {count += 8;}
+    else if (result[i] < 2)   {count += 7; break;}
+    else if (result[i] < 4)   {count += 6; break;}
+    else if (result[i] < 8)   {count += 5; break;}
+    else if (result[i] < 16)  {count += 4; break;}
+    else if (result[i] < 32)  {count += 3; break;}
+    else if (result[i] < 64)  {count += 2; break;}
+    else if (result[i] < 128) {count += 1; break;}
+    else break;
+  }
+
+  return count;
+}
+
+
 int scanhash_lyra2rev2(int thr_id, struct work *work,
 	uint32_t max_nonce, uint64_t *hashes_done)
 {
@@ -94,7 +114,8 @@ int scanhash_lyra2rev2(int thr_id, struct work *work,
   l2v2_blake256_midstate( endiandata );
 
   be32enc(&endiandata[19], nonce);
-  drv_send_work(g_msgIdx, (uint8_t *)&nonce, 4, (uint8_t *)&endiandata[0], 80);
+  uint8_t diff = _get_leadingZeroCnt((uint8_t *)ptarget);
+  drv_send_work(g_msgIdx, diff, (uint8_t *)&nonce, 4, (uint8_t *)&endiandata[0], 80);
   do {
     ncnt = drv_get_nonce(&msgidx, (uint8_t *)&work->nonces[0]);
   } while((msgidx != g_msgIdx) || (ncnt == 0));
