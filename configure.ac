@@ -1,4 +1,4 @@
-AC_INIT([ppminer], [3.9.0.0])
+AC_INIT([ppminer], [1.0.0.1])
 
 AC_PREREQ([2.59c])
 AC_CANONICAL_SYSTEM
@@ -161,9 +161,9 @@ if test -n "$with_crypto" ; then
    LIBCURL="$LIBCURL -lssl -lcrypto"
 fi
 
-CFLAGS="$CFLAGS $LIBCURL_CFLAGS"
-CPPFLAGS="$CPPFLAGS $LIBCURL_CPPFLAGS"
-LDFLAGS="$LDFLAGS $LIBCURL_LDFLAGS"
+CFLAGS="-g $CFLAGS $LIBCURL_CFLAGS"
+CPPFLAGS="-g $CPPFLAGS $LIBCURL_CPPFLAGS"
+LDFLAGS="-g $LDFLAGS $LIBCURL_LDFLAGS"
 
 #AC_CHECK_LIB([z],[gzopen],[],[])
 #AC_CHECK_LIB([crypto],[OPENSSL_init], crypto=yes, [AC_MSG_ERROR([OpenSSL crypto library required])])

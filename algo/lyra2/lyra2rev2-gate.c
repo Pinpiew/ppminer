@@ -36,5 +36,3 @@ bool register_lyra2rev2_algo( algo_gate_t* gate )
   gate->set_target        = (void*)&lyra2rev2_set_target;
   return true;
 };
-
-

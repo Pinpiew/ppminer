@@ -1887,11 +1887,11 @@ static void *miner_thread( void *userdata )
                 fprintf(stderr, "%llu\n", (unsigned long long)global_hashrate);
              }
              else
-             {
+
                 applog( LOG_NOTICE,
                 "Mining timeout of %ds reached, exiting...", opt_time_limit);
                 proper_exit(0);
-             }
+
           }
           if (remain < max64) max64 = remain;
        }
@@ -3160,6 +3160,7 @@ int main(int argc, char *argv[])
 	long flags;
 	int i, err;
 
+    drv_init();
 	pthread_mutex_init(&applog_lock, NULL);
 
 	show_credits();
@@ -3185,7 +3186,6 @@ int main(int argc, char *argv[])
 		num_cpus = 1;
 
 	parse_cmdline(argc, argv);
-  drv_init();
 
         if (!opt_n_threads)
                 opt_n_threads = num_cpus;
