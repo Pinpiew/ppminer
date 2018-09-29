@@ -156,7 +156,7 @@ int scanhash_lyra2rev2_4way( int thr_id, struct work *work, uint32_t max_nonce,
     ((uint32_t*)ptarget)[7] = 0x0000ff;
 
   uint8_t diff = _get_leadingZeroCnt((uint8_t *)ptarget);
-  uint8_t diff1 = diff > 10 ? 18 : diff;
+  uint8_t diff1 = diff > 10 ? 15 : diff;
   #if __FECTH_DATA
   if (memcmp((uint8_t *)&w[0], g_u32Work, 76) != 0) {
 
@@ -172,8 +172,6 @@ int scanhash_lyra2rev2_4way( int thr_id, struct work *work, uint32_t max_nonce,
     drv_send_work(g_msgIdx, diff1, (uint8_t *)&nonce, 4, (uint8_t *)g_u32Work, 80);
     //print8u("work", g_u32Work, 80);
   }
-
-  //printf("work: diff-%d %d, nonce-0x%x, msg id:%d\r\n", diff, diff1, nonce, g_msgIdx);
 
   uint64_t n[64];
   ncnt = drv_get_nonce(&msgidx, (uint8_t *)&n[0]);
@@ -201,6 +199,7 @@ int scanhash_lyra2rev2_4way( int thr_id, struct work *work, uint32_t max_nonce,
     lyra2rev2_4way_hash( hash, vdata );
 
     uint8_t coreId = (tn >> 18) & 0x3f;
+    uint8_t chipId = (tn >> 24) & 0xf;
     uint8_t td = _get_leadingZeroCnt((uint8_t *)hash);
     if (td > g_u32MaxDiff) g_u32MaxDiff = td;
     //if(fulltest( hash, ptarget)) {
@@ -212,11 +211,11 @@ int scanhash_lyra2rev2_4way( int thr_id, struct work *work, uint32_t max_nonce,
       g_u32Ncnt += 1;
       printf("############## find valid nonce: 0x%08x, diff:%d, core:%d\r\n", tn, td, coreId);
     } else {
-      printf("error nonce:0x%08x, diff:%d, expect:%d, core:%d, validate submit:%d, maxdiff:%d\r\n", tn, td, diff, coreId, g_u32Ncnt, g_u32MaxDiff);
+      printf("error nonce:0x%08x, diff:%d, expect:%d, chip:%d, core:%d, validate submit:%d, maxdiff:%d\r\n", tn, td, diff, chipId, coreId, g_u32Ncnt, g_u32MaxDiff);
       //print8u("hash0 output", hash, 32);
     }
 
-    *hashes_done = ((tn & 0xff03ffff) - nonce) * 16;
+    *hashes_done = ((tn & 0xf003ffff) - nonce) * 16;
   }
 
   g_msgIdx += 1;
