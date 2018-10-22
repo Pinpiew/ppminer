@@ -76,12 +76,12 @@ uint8_t _get_ack(uint8_t *buf, uint8_t *chain_idx) {
 
   struct ack_header frame;
 
-  g_midd_api.recv_regdata((uint8_t *)&frame, BM1940_ACK_HEADER_LEN);
+  g_midd_api.recv_regdata((uint8_t *)&frame, BM_ACK_HEADER_LEN);
   g_midd_api.recv_regdata(frame.data, frame.data_len);
   g_midd_api.recv_regdata(chain_idx, 1);
 
   if (buf)
-    memcpy(buf, (uint8_t *)&frame, frame.data_len + BM1940_ACK_HEADER_LEN);
+    memcpy(buf, (uint8_t *)&frame, frame.data_len + BM_ACK_HEADER_LEN);
 
   return frame.data_len;
 }
@@ -90,7 +90,7 @@ uint8_t _get_nonce(uint8_t *buf, uint8_t *chain_idx) {
 
   struct ack_header frame;
 
-  g_midd_api.recv_work((uint8_t *)&frame, BM1940_ACK_HEADER_LEN);
+  g_midd_api.recv_work((uint8_t *)&frame, BM_ACK_HEADER_LEN);
   g_midd_api.recv_work(frame.data, frame.data_len);
   g_midd_api.recv_work(chain_idx, 1);
 
@@ -144,7 +144,7 @@ void drv_init(void)
     _chip_init(i);
     sleep(1);
     rb_len = rt_ringbuffer_data_len(&g_midd_api.bm_reg_rb);
-    chip_num = rb_len / (BM1940_ACK_HEADER_LEN + 4 + 1);
+    chip_num = rb_len / (BM_ACK_HEADER_LEN + 4 + 1);
     printf("%s, %d: found chip num:%d\n", __FUNCTION__, __LINE__, chip_num);
     for(int j = 0; j < chip_num; j++)
       _get_ack(NULL, &tmp);

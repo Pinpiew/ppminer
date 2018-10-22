@@ -264,7 +264,7 @@ ppminer_SOURCES += \
   driver/common/ringbuffer.c \
   driver/common/util.c  \
   driver/communicate/uart-ubuntu.c \
-  driver/plat/bm1940-driver.c
+  driver/plat/driver.c
 
 ALL_INCLUDES += -Idriver -Idriver/common -Idriver/communicate -Idriver/plat
 

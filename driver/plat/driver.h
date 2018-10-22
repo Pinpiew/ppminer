@@ -1,5 +1,5 @@
-#ifndef _BM1940_REG_OPERATION_H_
-#define _BM1940_REG_OPERATION_H_
+#ifndef _BM_REG_OPERATION_H_
+#define _BM_REG_OPERATION_H_
 
 #include <stdint.h>
 
@@ -12,30 +12,30 @@
 #define DATAF_HEAD_LEN          64
 
 
-#define BM1940_HEADER_55        0x55
-#define BM1940_HEADER_AA        0xaa
-#define BM1940_HEADER_5A        0x5a
-#define BM1940_HEADER_AE        0xae
-#define BM1940_HEADER_5D        0x5d
-#define BM1940_HEADER_A5        0xa5
+#define BM_HEADER_55        0x55
+#define BM_HEADER_AA        0xaa
+#define BM_HEADER_5A        0x5a
+#define BM_HEADER_AE        0xae
+#define BM_HEADER_5D        0x5d
+#define BM_HEADER_A5        0xa5
 
 
 
-#define BM1940_CMD_HEADER_LEN       6
-#define BM1940_ACK_HEADER_LEN       7
+#define BM_CMD_HEADER_LEN       6
+#define BM_ACK_HEADER_LEN       7
 
-#define BM1940_CRC16_LEN        2
-#define BM1940_CRC5_LEN         1
-#define BM1940_WORK_LEN         86
-#define BM1940_DATAFRAME_LEN    128
+#define BM_CRC16_LEN        2
+#define BM_CRC5_LEN         1
+#define BM_WORK_LEN         86
+#define BM_DATAFRAME_LEN    128
 
 
-#define BM1940_RESP_NONCE_LEN           (9)
-#define BM1940_RESP_REG_LEN             (9)
+#define BM_RESP_NONCE_LEN           (9)
+#define BM_RESP_REG_LEN             (9)
 
 
 // General I2C Command.  default: 0x01000000
-/***************SPEC. bm1940 Command Definition***************/
+/***************SPEC. bm Command Definition***************/
 enum input_data_type
 {
     WORK_INPUT      = 0x01,
@@ -92,11 +92,11 @@ struct mem_data
 
 
 /******************function declaration******************/
-int bm1940_soc_init(void *arg);
-int bm1940_soc_exit();
-int bm1940_pack_ioctl_pkg(uint8_t *str, uint32_t str_len, uint32_t oper_type, void *param);
-int bm1940_parse_respond_pkg(uint8_t *str, uint32_t len, int *type, uint8_t *out_str, uint32_t out_len);
-int bm1940_parse_respond_len(uint8_t *str, int len, int *read_len, int *st);
-int bm1940_pack_cmd_frame(uint8_t *str);
+int bm_soc_init(void *arg);
+int bm_soc_exit();
+int bm_pack_ioctl_pkg(uint8_t *str, uint32_t str_len, uint32_t oper_type, void *param);
+int bm_parse_respond_pkg(uint8_t *str, uint32_t len, int *type, uint8_t *out_str, uint32_t out_len);
+int bm_parse_respond_len(uint8_t *str, int len, int *read_len, int *st);
+int bm_pack_cmd_frame(uint8_t *str);
 
 #endif
