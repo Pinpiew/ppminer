@@ -173,6 +173,8 @@ bool register_algo_gate( int algo, algo_gate_t *gate )
      case ALGO_CRYPTOLIGHT:  register_cryptolight_algo  ( gate ); break;
      case ALGO_CRYPTONIGHT:  register_cryptonight_algo  ( gate ); break;
      case ALGO_CRYPTONIGHTV7:register_cryptonightv7_algo( gate ); break;
+		 case ALGO_CRYPTONIGHTV8:register_cryptonightv8_algo( gate ); break;
+		 case ALGO_CRYPTONIGHT_HEAVY:register_cryptonightheavy_algo( gate ); break;
      case ALGO_DECRED:       register_decred_algo       ( gate ); break;
      case ALGO_DEEP:         register_deep_algo         ( gate ); break;
      case ALGO_DMD_GR:       register_dmd_gr_algo       ( gate ); break;

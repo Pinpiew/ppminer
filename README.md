@@ -23,6 +23,8 @@ Supported Algorithms
                           cryptolight   Cryptonight-light
                           cryptonight
                           cryptonightv7 Monero (XMR)
+                          cryptonightv8 Monero (XMR)
+                          cryptonightheavy
                           decred
                           deep          Deepcoin (DCN)
                           dmd-gr        Diamond-Groestl
